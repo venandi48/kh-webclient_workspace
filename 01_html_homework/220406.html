@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>220406 실습문제</title>
+    <style>
+        table{
+            border: 1px solid black;
+        }
+        th, td{
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>문제1</h1>
+    <form action="">
+        <fieldset>
+            <legend>납품자 정보</legend>
+            <ol>
+                <li>
+                    <label for="supplierName">납품자명(필수) : </label>
+                    <input type="text" id="supplierName" name="supplierName" required>
+                </li>
+                <br>
+                <li>
+                    <label for="email">이메일(필수) : </label>
+                    <input type="email" name="email" id="email" required placeholder="answer@naver.com">
+                </li>
+                <br>
+                <li>
+                    <label for="homepage">홈페이지 : </label>
+                    <input type="url" name="homepage" id="homepage" value="http://">
+                </li>
+                <br>
+                <li>
+                    <label for="location">지역 : </label>
+                    <select name="location" id="location">
+                        <option value="seoul">서울</option>
+                        <option value="gyeonggi">경기</option>
+                        <option value="incheon">인천</option>
+                        <option value="gangwon">강원</option>
+                        <option value="chungnam">충남</option>
+                        <option value="chungbuk">충북</option>
+                        <option value="sejong">세종</option>
+                        <option value="deajeon">대전</option>
+                        <option value="jeonnam">전남</option>
+                        <option value="jeonbuk">전북</option>
+                        <option value="gwangju">광주</option>
+                        <option value="gyeongnam">경남</option>
+                        <option value="gyeongbuk">경북</option>
+                        <option value="daegu">대구</option>
+                        <option value="busan" selected>부산</option>
+                        <option value="ulsan">울산</option>
+                        <option value="jeju">제주</option>
+                    </select>
+                </li>
+            </ol>
+        </fieldset>
+        <fieldset>
+            <legend>납품 정보</legend>
+                <ul>
+                    <li>
+                        <label for="productName">상품명(필수) : </label>
+                        <input type="text" id="productName" name="productName" required>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="productCount">납품수량(필수) : </label>
+                        <input type="number" id="productCount" name="productCount" min="100" placeholder="최소 100">
+                    </li>
+                    <br>
+                    <li>
+                        <label for="productGrade">납품등급(필수) : </label>
+                        <input type="range" id="productGrade" name="productGrade" required>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="etcMemo">기타사항 : </label>
+                        <textarea name="etcMemo" id="etcMemo" cols="20" rows="2"></textarea>
+                    </li>
+                </ul>
+        </fieldset>
+
+        <br>
+        <input type="submit" value="send message">
+    </form>
+
+    <!-------------------------------------------------------------------------->
+    
+    <br><br>
+    <h1>문제2</h1>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="5">하수정 보석 컬렉션</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th rowspan="5">제품들</th>
+                <th>코드</th>
+                <th>분류</th>
+                <th>가격</th>
+                <th>구매가능 개수</th>
+            </tr>
+            <tr>
+                <td>01-468</td>
+                <td>가을</td>
+                <td>200,000원</td>
+                <td>1068</td>
+            </tr>
+            <tr>
+                <td>01-469</td>
+                <td>가을</td>
+                <td>150,000원</td>
+                <td>1700</td>
+            </tr>
+            <tr>
+                <td>01-470</td>
+                <td>여름</td>
+                <td>950,000원</td>
+                <td>2500</td>
+            </tr>
+            <tr>
+                <td>01-471</td>
+                <td>봄</td>
+                <td>120,000원</td>
+                <td>3200</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
