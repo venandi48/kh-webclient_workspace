@@ -9,6 +9,7 @@
 <body>
     <h1>폼관련태그</h1>
     <h2>from</h2>
+    <form>
     <!--
         사용자입력값을 서버로 전송하기 위한 태그
          - action : 서버주소. 현재페이지주소로 제출이 디폴트
@@ -16,7 +17,6 @@
             - GET : 사용자입력값이 요청url에 붙여 전송
             - POST : 사용자입력값을 숨김처리(전송 메세지 body에 작성)
     -->
-    <form action="">
         <!-- for속성이 input태그의 id속성과 연결되어야 함 -->
         <label for="userId">아이디 : </label>
 
@@ -41,7 +41,7 @@
         <fieldset>
             <legend>text관련 input태그</legend>
             <label for="userName">이름 : </label>
-            <input type="text" id="userName" name="userName" value="홍길동" readonly>
+            <input type="text" id="userName" name="userName">
             <br>
             <label for="userPassword">비밀번호 : </label>
             <input type="password" name="userPassword" id="userPassword" maxlength="16">
@@ -50,7 +50,7 @@
             <input type="email" name="userEmail" id="userEmail">
             <br>
             <label for="homepage">홈페이지 : </label>
-            <input type="url" name="homepage" id="homepage" value="https://">
+            <input type="url" name="homepage" id="homepage">
             <br>
             <label for="phone">전화번호 : </label>
             <input type="tel" name="phone" id="phone">
@@ -61,32 +61,113 @@
             개행, 공백 그대로 쓰인다</textarea>
         </fieldset>
         <input type="submit" value="제출">
+        
+        
+        <fieldset>
+            <legend>숫자관련 input태그</legend>
+            <label for="score">점수 : </label>
+            <input type="number" name="score" id="score" min="0" max="100" step="5">
+            <br>
+            <label for="numRange">범위 : </label>
+            <input type="range" name="numRange" id="numRange" min="-100" max="100" step="10">
+            <br>
+        </fieldset>
+        <br>
+    </form>
+        
+    <form action="">
+        <fieldset>
+            <legend>선택관련 태그</legend>
+            <label for="nation">국적</label>
+            <select name="nation" id="nation">
+                <option value="">선택</option>
+                <option value="ko" selected>한국</option>
+                <option value="ch">중국</option>
+                <option value="jp">일본</option>
+            </select>
+            <br>
+            <label for="car">차 : </label>
+            <input type="text" name="car" id="car" list="carList">
+            <datalist id="carList">
+                <option value="소나타">소나타</option>
+                <option value="그랜져">그랜져</option>
+                <option value="제네시스">제네시스</option>
+            </datalist>
+        </fieldset>
     </form>
 
+    <br>
+    <form action="">
+        <fieldset>
+            <legend>날짜/시간관련 input태그</legend>
+            <label for="today">날짜 : </label>
+            <input type="date" name="today" id="today" value="2022-01-01" readonly>
+            <br>
+            <label for="when">시간 : </label>
+            <input type="time" name="when" id="when" value="21:33">
+            <br>
+            <label for="meeting">약속시간 : </label>
+            <input type="datetime-local" name="meeting" id="meeting" value="2022-03-05T12:23">
+        </fieldset>
+        <br><br>
+    </form>
+    
+    <form action="">
+        <fieldset>
+            <legend>
+            radio/checkbox관련 input태그
+        </legend>
+        <!--
+            radio 택일
+            checkbox 다중선택 가능
+
+            체크하지 않으면 아무것도 전송되지 않음
+        -->
+        <div>
+            성별 : 
+            <input type="radio" name="gender" id="gender-male" value="male">
+            <label for="gender-male">남</label>
+            <input type="radio" name="gender" id="gender-female" value="female">
+            <label for="gender-female">여</label>
+            <br>
+            취미 : 
+            <input type="checkbox" name="hobby" id="hobby-game" value="게임">
+            <label for="hobby-game">게임</label>
+            <input type="checkbox" name="hobby" id="hobby-music" value="음악">
+            <label for="hobby-music">음악</label>
+            <input type="checkbox" name="hobby" id="hobby-movie" value="영화">
+            <label for="hobby-movie">영화</label>
+
+            <br>
+            <!-- 체크박스 하나인 경우, value를 생략해도 서버측에서 구분가능-->
+            <label for="forEmail">이메일 수신여부: </label>
+            <input type="checkbox" name="forEmail" id="forEmail">
+        </div>
+    </fieldset>
+    <br>
 
     <fieldset>
-        <legend>숫자관련 input태그</legend>
-        <label for="score">점수 : </label>
-        <input type="number" name="score" id="score" min="0" max="100" step="5">
+        <legend>기타</legend>
+        <label for="myColor">컬러 : </label>
+        <input type="color" name="myColor" id="myColor" value="#ff0000">
+        <!-- disable 속성은 서버측으로 전송되지 않음 -->
         <br>
-        <label for="numRange">범위 : </label>
-        <input type="range" name="numRange" id="numRange" min="-100" max="100" step="10">
+        <label for="upFile">파일 : </label>
+        <input type="file" name="upFile" id="upFile">
         <br>
+        <label for="hidden">안보이지만 전송 : </label>
+        <input type="hidden" name="hidden" id="hidden" value="helloworld">
     </fieldset>
-    <br><br><br>
 
-    <fieldset>
-        <legend>선택관련 태그</legend>
-        <label for="nation">국적</label>
-        <select name="nation" id="nation">
-            <option value="">선택</option>
-            <option value="ko" selected>한국</option>
-            <option value="ch">중국</option>
-            <option value="jp">일본</option>
-        </select>
-    </fieldset>
     <input type="submit" value="제출">
-
-    <br><br>
-</body>
+    <input type="reset" value="초기화"><!-- 폼 안의 input태그, value속성을 초기값으로 변경-->
+    <input type="button" value="그냥버튼">
+    <br>
+    <!-- button태그의 기본 type은 submit -->
+    <button type="submit">제출</button>
+    <button type="reset">초기화</button>
+    <button type="button">그냥버튼</button>
+    <button>기본타입은submit</button>
+    </form>
+    </body>
 </html>
