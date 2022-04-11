@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경계선</title>
+</head>
+<body>
+    <h1>경계선</h1>
+
+    <div class="box"></div>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: blanchedalmond;
+            /* border: 3px solid #000; */
+            border-width: 3px;
+            border-style: solid;
+            /* border-color: #000; */
+            border-top-color: blue;
+            border-right-color: brown;
+            border-bottom-color: darkorchid;
+            border-left-color: darkorange;
+        }
+    </style>
+
+    <h2>border-radius</h2>
+    <!--
+        코너를 둥글림 처리 속성
+    -->
+
+    <div class="box radius"></div>
+    <img class="radius" src="../sample/image/flower2.PNG" alt="" style="width: 200px ;">
+    <style>
+        .radius {
+            border-radius: 40px 30px 20px 10px;
+        }
+    </style>
+
+    <h2>box-shadow</h2>
+
+    <div class="box shadow"></div>
+    <style>
+        .shadow:hover {
+            /* 가로offset 세로offset blur(번짐) spread(그림자크기) color*/
+            box-shadow: 5px 5px 10px 3px gray;
+        }
+    </style>
+    
+</body>
+</html>

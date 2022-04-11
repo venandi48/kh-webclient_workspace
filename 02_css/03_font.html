@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Noto+Serif+KR:wght@200;300;400&display=swap" rel="stylesheet">
+    <title>글꼴관련</title>
+</head>
+<body>
+    <h1>글꼴관련</h1>
+    <div>
+        <p id="p1">abcdefg 1234567890 가나다라마바사</p>
+        <p id="p2">abcdefg 1234567890 가나다라마바사</p>
+        <p id="p3">abcdefg 1234567890 가나다라마바사</p>
+    </div>
+    <style>
+        #p1{ font-family : OS에없는폰트, 궁서체, 휴먼모음T, 고딕체; }
+        /* 구체적 -> 보편적 */
+        /*
+            serif 글자 끝 장식이 있는 폰트
+            sans-serif 글자 끝 장식이 없는 폰트
+        */
+        #p2 { font-family: 'Nanum Gothic Coding', monospace; }
+        #p3 { font-family: 'Noto Serif KR', serif; }
+    </style>
+
+    <div id="wrapper">
+        <ul>
+            <li>절대단위 px</li>
+            <li>상대단위 em</li>
+            <li>상대단위 rem</li>
+            <li>상대단위 %</li>
+        </ul>
+    </div>
+    <style>
+        :root { font-size: 16px; }
+        div#wrapper { font-size: 10px;}
+        div#wrapper li:first-of-type { font-size: 32px; }
+        div#wrapper li:nth-of-type(2) { font-size: 2em; }
+        div#wrapper li:nth-of-type(3) { font-size: 2rem; }
+        div#wrapper li:last-of-type { font-size: 200%; }
+    </style>
+
+    <div id="container">
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut sit maiores molestiae odio amet iure nam nulla quo architecto, aliquid, reprehenderit consectetur sequi magnam. Id at non ipsa nesciunt. Consequuntur.</p>
+        <p>Alias aliquam assumenda a voluptatibus placeat veniam illo maxime voluptates sunt exercitationem hic quo totam ullam molestiae sapiente iusto, eius vero consequatur fuga fugiat. Id officia dolorum dignissimos tenetur est.</p>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo dolorem ex nam illum perspiciatis! Quaerat odit, sint, obcaecati maxime quisquam ab modi itaque culpa ratione nulla, blanditiis eligendi aliquam maiores?</p>
+    </div>
+    <style>
+        #container p:first-child{
+            font-family: 'Noto Serif KR', serif;
+            font-weight: 100; /* light(100) ~ normal(400) ~ bold(700) | 100~900 */
+        }
+        #container p:nth-child(2) {
+            font-style: italic; /* 기울임 */ 
+            line-height: 2em; /* 행간 */
+        }
+        #container p:last-child {
+            font: italic 24px 'Noto Serif KR', serif ;
+        }
+    </style>
+
+</body>
+</html>

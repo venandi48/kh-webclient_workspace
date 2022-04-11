@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목록</title>
+</head>
+<body>
+    <h1>목록</h1>
+
+    <nav>
+        <ul class="menu">
+            <li><a id="home" href="#">Home</a></li>
+            <li><a id="html" href="#">HTML5</a></li>
+            <li>
+                <a id="css" href="#">CSS3</a>
+                <ul class="submenu">
+                    <li><a href="#">Bootstrap</a></li>
+                    <li><a href="#">Foundation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a id="js" href="#">Javascript</a>
+                <ul class="submenu">
+                    <li><a href="#">React</a></li>
+                    <li><a href="#">Vue</a></li>
+                </ul>
+            </li>
+            <li><a id="jquery" href="#">jQuery</a></li>
+        </ul>
+    </nav>
+    <style>
+        nav {
+            width: 80%;
+            margin: 0 auto;
+        }
+        ul.menu, ul.submenu {
+            padding: 0;
+            list-style: none;
+        }
+        ul.menu li {
+            float: left;
+            background-color:lightgray;
+            text-align: center;
+            border-right: 1px darkgrey solid;
+            box-shadow: 1px 1px 8px lightgrey;
+            width: 6em;
+            height: 2.5em;
+        }
+        ul.menu a {
+            display: block; /* inline요소를 block요소로 변경해서 w/h값 갖도록 함 */
+            text-decoration: none;
+            color:rgb(38, 38, 38);
+            padding: .8em .5em;
+        }
+
+        ul.menu li:hover {
+            background-color: rgb(160, 160, 160);
+        }
+        ul.menu li:hover a {
+            color: #fff;
+        }
+        ul.menu > li:first-child {
+            border-radius: .5em 0 0 .5em;
+        }
+        ul.menu > li:last-child {
+            border-radius: 0 .5em .5em 0;
+            border: 0; /* border-right*/
+        }
+        ul.submenu {
+            display: none; /* 숨김 처리 */
+        }
+        ul.menu > li:hover > ul{
+            display: block; /* 보임 처리*/
+        }
+        ul.menu > li li {
+            border: 0;
+            border-radius: 0;
+        }
+    </style>
+
+
+</body>
+</html>

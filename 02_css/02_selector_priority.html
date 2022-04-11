@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 우선순위</title>
+</head>
+<body>
+    <h1>선택자 우선순위</h1>
+    <!--
+        (우선순위 높음)
+        !important : 최우선
+        인라인
+        a   : #id
+        b   : .class, 속성
+        c   : 나머지(tag, 상태 ...)
+        (우선순위 낮음)
+        *   : 우선순위 없음
+    -->
+
+    <p id="myp" class="text" title="오늘의 한 문장" style="color: cyan;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim reprehenderit nobis voluptates commodi harum quis quidem eveniet dolorem, expedita eos quaerat tenetur ipsum consectetur iure distinctio beatae ipsam impedit nam?</p>
+    <style>
+        #myp { color: blueviolet; }
+        .text { color: yellow !important; }
+        p { color:violet; }
+    </style>
+    
+</body>
+</html>

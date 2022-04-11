@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트관련</title>
+</head>
+<body>
+    <h1>텍스트관련</h1>
+
+    <div>
+        <div id="wrapper1">
+            <p id="color1">컬러명</p>
+            <p id="color2">16진수</p>
+            <p id="color3">RGB</p>
+            <p id="color4">HSL</p>
+        </div>
+    </div>
+    <style>
+        #color1 { color: darkcyan; }
+        #color2 { color: #008b8b; }
+        #color3 { 
+            /* color: rgb(0, 139, 139) */
+            color: rgb(0, 139, 139 / 50%); 
+            color: rgba(0, 139, 139, 0.5); 
+        }
+        #color4 { color: hsl(180, 100%, 27%); }
+    </style>
+
+    <div id="wrapper2">
+        <ul>
+            <li id="deco1">안녕하세요</li>
+            <li id="deco2"><a href="http://naver.com">네이버</a></li>
+        </ul>
+    </div>
+    <style>
+        #deco1 { text-decoration: underline red wavy; }
+        #deco2 a { text-decoration: none; }
+        #deco2 a:hover { text-decoration: underline; }
+    </style>
+
+    <div id="wrapper3">
+        <p id="shadow">안녕하세요</p>
+    </div>
+    <div id="wrapper4">
+        <span id="shadow1" class="shadow-group">HTMLl5</span><br>
+        <span id="shadow2" class="shadow-group">HTMLl5</span><br>
+        <span id="shadow3" class="shadow-group">HTMLl5</span><br>
+        <span id="shadow4" class="shadow-group">HTMLl5</span><br>
+    </div>
+    <style>
+        /* 가로offset 세로offset spread color */
+        #shadow { text-shadow: 3px 3px 0px grey;}
+
+        #wrapper4 { background-color: #000; } /* #123 -> #112233*/
+        .shadow-group { color: #fff;  font-size: 60px; line-height: 60px ;font-weight: 700;}
+        #shadow1 { color:orangered; text-shadow: 3px 3px 0px orange;}
+        #shadow2 { text-shadow: 0px 0px 10px #fff;}
+        #shadow3 { text-shadow: 0px 0px 10px rgb(42, 229, 0);}
+        #shadow4 { 
+            color:#000;
+            text-shadow: 
+                0px -5px 3px yellow, -2px -10px 5px orangered
+                , -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey ;
+            }
+    </style>
+
+    <div id="wrapper5">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, accusantium quaerat ea ullam, laborum vel quae quos hic iste earum, delectus quidem praesentium error nam ipsam quibusdam. Aperiam, aut tenetur?</p>
+    </div>
+    <style>
+        #wrapper5 {
+            border: 2px solid black;
+            background-color: lightgray;
+            margin-top: 30px;
+            width: 300px;
+            white-space: nowrap; /* 줄바꿈 속성 */
+            /* overflow: scroll; */
+            overflow-x: scroll;
+        }
+    </style>
+
+</body>
+</html>

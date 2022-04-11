@@ -10,17 +10,17 @@
     -->
 </head>
 <body>
-    <h1 class="group1" title="제목입니다.">선택자</h1>
     <!--
         특정 html 태그를 선택하여 스타일을 적용하도록 하는 문법
-         - 태그명
-         - id
-         - class
-         - 속성명
-         - 상태
-         - ...
+        - 태그명
+        - id
+        - class
+        - 속성명
+        - 상태
+        - ...
     -->
-
+    
+    <h1 class="group1" title="제목입니다.">선택자</h1>
     <div>
         <ul>
             <li id="hw1" class="group1" title="HelloWorld1">HelloWorld1</li>
@@ -47,8 +47,8 @@
         [title=HelloWorld3] { text-decoration: underline;} */
         
         /* 혼용 */
-        /* li.group1 { color:cornflowerblue }
-        li[title] { background-color: lavenderblush;} */
+        li.group1 { color:cornflowerblue }
+        li[title] { background-color: lavenderblush;}
         
         /* 다수선택 */
         /* #hw1, .group2 { color:hotpink } */
@@ -185,7 +185,7 @@
         /* div#foo :not(p:first-of-type) { color:cyan } */
 
         /* 최상위 선택자 */
-        :root {background-color: darksalmon;}
+        /* :root {background-color: darksalmon;} */
     </style>
 
 </body>
