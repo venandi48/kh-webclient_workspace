@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>CSS실습문제-box-shadow</title>
+</head>
+<body>
+<h2>이미지에 마우스 hover 그림자효과 만들기</h2>
+<hr/>
+    <div class="wrapper">
+        <img id="sun1" class="sun" src="test/sun/sun1.jpg" alt="태양이미지1" >
+        <img id="sun2" class="sun" src="test/sun/sun2.jpg" alt="태양이미지2" >
+        <img id="sun3" class="sun" src="test/sun/sun3.jpg" alt="태양이미지3" >
+    </div>
+    <style>
+        .wrapper {
+            text-align: center;
+            width: 800px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: lightgray;
+        }
+        .sun {
+            margin-top: 20px;
+            margin-right: 5px;
+            height: 150px;
+        }
+        .sun:hover {
+            box-shadow: 2px 2px 10px rgb(40, 40, 40);
+        }
+    </style>
+</body>
+</html>
