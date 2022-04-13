@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <script src="./js/main.js"></script>
+    <script>
+         // 자바스크립트 작성 영역
+        //  const a = 123;
+        //  alert(a);
+
+        //함수선언
+        function foo(){
+            console.log('foo 실행!'); // 브라우저 개발도구
+        }
+        foo(); // 함수 호출
+    </script>
+</head>
+<body>
+    <h1>Javascript</h1>
+
+    <h2>브라우저에서 Javascript를 사용하는 3가지 방법</h2>
+    <ul>
+        <li>내부 script 작성 : head태그 안, body영역의 마지막</li>
+        <li>
+            html 이벤트속성
+            <button onclick="alert('버튼 클릭'); foo(); bar();">클릭</button>
+        </li>
+        <li>외부 script 작성하고 가져와 사용하기</li>
+    </ul>
+    <hr>
+    
+    <ul>
+        <li><a href="01_datatype.html">자료형</a></li>
+        <li><a href="02_access_dom.html">DOM에 접근하기</a></li>
+        <li><a href="03_className_classList.html">클래스값으로 DOM 제어</a></li>
+    </ul>
+
+    <script>
+        // 자바스크립트 작성영역2 (GOOD~)
+        //  const b = 456;
+        //  alert(b);
+    </script>
+</body>
+</html>
