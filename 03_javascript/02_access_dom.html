@@ -93,8 +93,8 @@
          *  - input#username의 사용자입력값을 alert로 출력
          */
         function test5(){
-            // const username = document.getElemenstByName("username")[0]; // 나 이거 오류뜸 ㅠ
-            const username = document.getElemenstById("username");            
+            //const username = document.getElementById("username");
+            const username = document.getElementsByName("username")[0];
 
             alert (username.value);
         }
