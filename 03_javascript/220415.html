@@ -4,6 +4,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>체크박스(체크박스를 라디오 버튼처럼 사용하기 / 전체선택 or 전체해제)</title>
+    <style>
+        table {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+        table td {
+            border: 1px solid #000;
+            padding: 3px;
+        }
+        table td.title {
+            color: orange;
+            font-weight: 700;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,17 +30,32 @@
 				<tr>
 					<td class="title">종류</td>
 					<td>
-						<input type="checkbox" name="product" id="product1" value="product1" /><label for="product1">메인보드</label>&nbsp;
-						<input type="checkbox" name="product" id="product2" value="product2" /><label for="product2">모니터</label>&nbsp;
-						<input type="checkbox" name="product" id="product3" value="product3" /><label for="product3">프린터</label>&nbsp;
-						<input type="checkbox" name="product" id="product4" value="product4" /><label for="product4">하드디스크</label>&nbsp;
-						<input type="checkbox" name="product" id="product5" value="product5" /><label for="product5">메모리</label>&nbsp;
-						<input type="checkbox" name="product" id="product6" value="product6" /><label for="product6">CPU</label>&nbsp;
+						<input type="checkbox" name="product" id="product1" value="product1" onclick="checkOnlyOne(this);"/><label for="product1">메인보드</label>&nbsp;
+                        <input type="checkbox" name="product" id="product2" value="product2" onclick="checkOnlyOne(this);"/><label for="product2">모니터</label>&nbsp;
+						<input type="checkbox" name="product" id="product3" value="product3" onclick="checkOnlyOne(this);"/><label for="product3">프린터</label>&nbsp;
+						<input type="checkbox" name="product" id="product4" value="product4" onclick="checkOnlyOne(this);"/><label for="product4">하드디스크</label>&nbsp;
+						<input type="checkbox" name="product" id="product5" value="product5" onclick="checkOnlyOne(this);"/><label for="product5">메모리</label>&nbsp;
+						<input type="checkbox" name="product" id="product6" value="product6" onclick="checkOnlyOne(this);"/><label for="product6">CPU</label>&nbsp;
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
+
+    <script>
+        function checkOnlyOne(thisProduct){
+            // 다른 체크박스 확인
+            const productList = document.querySelectorAll("[name=product]");
+
+            productList.forEach(function(product, index){
+                // 체크한 위치 제외한 checked상태인 체크박스
+                if(product.checked && thisProduct!=product){
+                    // 체크해제
+                    product.checked = false;
+                }
+            });
+        }
+    </script>
 
 </body>
 
