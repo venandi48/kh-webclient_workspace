@@ -137,7 +137,7 @@
 
         /**
          * 모든 함수는 리턴값이 있다.
-         * 명시적으로 선언하지 않았다면, undifined를 리턴한다.
+         * 명시적으로 선언하지 않았다면, undefined를 리턴한다.
          */
         const test4 = function(){
             console.log(`리턴값 : ${foo()}`);
@@ -154,7 +154,7 @@
         const test3 = function(){
             console.log(add1(3, 5));
             console.log(add1(3, 5, 7)); // 매개변수가 없는 경우 무시
-            console.log(add1(3)); // 매개인자가 없는 경우, 해당 매개변수는 undifined
+            console.log(add1(3)); // 매개인자가 없는 경우, 해당 매개변수는 undefined
 
             console.log(add2(1, 2)); // 3
             console.log(add2(1, 2, 3, 4, 5)); // 15
@@ -255,7 +255,6 @@
         /**
          * 함수는 1급객체이다.
          *  = 값으로써 처리 가능
-         * 
          */
         const test9 = () => {
             // console.log('test9');
@@ -266,7 +265,7 @@
             // funcExecuter(doo);
 
             // @실습문제 : calc
-            // 숫자 2개와 계산함수를 함꼐 전달해서 결과값을 출력
+            // 숫자 2개와 계산함수를 함께 전달해서 결과값을 출력
             const add = (a, b) => a + b;
             const subtract = (a, b) => a - b;
             const multiply = (a, b) => a * b;
@@ -275,7 +274,6 @@
             console.log(calculator(30, 10, subtract));
             console.log(calculator(30, 10, multiply));
             console.log(calculator(30, 10, divide));
-
         };
         const calculator = (n1, n2, func) => {
             return func(n1, n2);
