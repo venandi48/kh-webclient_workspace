@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수</title>
+</head>
+<body>
+    <h1>함수</h1>
+
+    <button onclick="test1();">함수선언식</button>
+    <button onclick="test2();">함수표현식</button>
+    <script>
+        /**
+         * 즉시 실행함수 iife(Immediately Invoke Function Expression)
+         *  - 선언/호출을 한번에 처리
+         */
+        (function() {
+            // console.log("iife1 호출!");
+        })();
+        (function() {
+            // console.log("iife2 호출!");
+        }());
+
+        (function(name) {
+            // console.log(`${name}님, 안녕하세요.`);
+        }());
+        (function(name) {
+            // console.log(`${name}님, 안녕하세요.`);
+        }("홍길동"));
+
+        /**
+         * 함수 선언식 Function Declaration
+         *  - hoisting처리됨. 선언전에 호출가능
+         *  - hoisting이란? 함수선언식, var로 선언된 변수등을 우선적으로 선언처리하는 것
+         */
+        function test1(){
+            console.log("test1");
+        }
+        
+        /**
+         * 함수 표현식 Function Expression
+         *  - 변수에 함수를 대입
+         *  - 익명함수 (이름을 써도 무시)
+         *  - 끝에 ;(세미콜론) 작성할 것
+         *  - hoisting처리되지 않음. 선언전에 호출불가
+         */
+        const test2 = function(){
+            console.log("test2");
+        };
+    </script>
+
+    <button onclick="test3();">매개인자 | 매개변수</button>
+    <button onclick="test4();">리턴값</button>
+    <button onclick="test5();">나머지 파라미터</button>
+    <button onclick="test6();">@실습문제 : 계산기</button>
+    <script>
+        /**
+         * @실습문제 : 계산기
+         *  - calc('plus', 10, 20) -> 30리턴
+         *  - calc('minus', 100, 70) -> 30리턴
+         *  - calc('multiply', 5, 4, 3) -> 60리턴
+         *  - calc('divide', 100, 3) -> 33리턴
+         */
+        const test6 = function(){
+            console.log(calc2('plus', 10, 20));
+            console.log(calc2('minus', 100, 70));
+            console.log(calc2('multiply', 5, 4, 3));
+            console.log(calc2('divide', 100, 3));
+            // console.log(calc('dide', 100, 3));
+        };
+        const calc = function(type, ...nums){
+            let result = 0;
+            
+            switch(type){
+                case "plus": 
+                    for(let num of nums){
+                        result += num
+                    }
+                    break;
+                case "minus":
+                    result = nums[0]
+                    for(let i = 1; i<nums.length ; i++){
+                        result -= nums[i]
+                    }
+                    break;
+                case "multiply":
+                    result = 1;
+                    for(let num of nums){
+                        result *= num
+                    }
+                    // result = nums.reduce(function(total, num, i){
+                    //     // console.log(total, num, i);
+                    //     return total * num;
+                    // });
+                    break;
+                case "divide":
+                    result = nums[0]
+                    for(let i = 1; i<nums.length ; i++){
+                        result /= nums[i]
+                    }
+                    result = Math.trunc(result);
+                    break;
+                default:
+                    alert("계산기에 없는 기능입니다.");
+            }
+            return result;
+        };
+
+        const calc2 = function(type, ...nums){
+          return nums.reduce(function(total, n, i){
+              switch(type){
+                  case 'plus': return total + n;
+                  case 'minus': return total - n;
+                  case 'multiply': return total * n;
+                  case 'divide': return Math.floor(total/n);
+              }
+          })
+        };
+
+        /**
+         * 나머지 파라미터 Rest Parameter
+         *  - 매개변수 선언부에서 사용.
+         *  - 남은 매개인자를 모두 모아서 배열로 처리가능.
+         *  - 전개 연산자와 모양은 같지만 역할이 다름.
+         */
+        const test5 = function(){
+            bar('홍길동', 33, '축구', '농구', '배구'); // ['축구', '농구', '배구']
+            bar('신사임당', 33, '클라이밍'); // ['클라이밍']
+            bar('윤봉길', 33); // []
+        };
+        const bar = function(name, age, ...hobby){
+            console.log(`name = ${name} age = ${age}`);
+            console.log(`hobby = ${hobby} (${typeof hobby})`, hobby);
+        };
+
+        /**
+         * 모든 함수는 리턴값이 있다.
+         * 명시적으로 선언하지 않았다면, undifined를 리턴한다.
+         */
+        const test4 = function(){
+            console.log(`리턴값 : ${foo()}`);
+        };
+        const foo = function(){
+            console.log("foo");
+            return "foo리턴합니다!";
+        };
+
+        /**
+         * 매개인자 argument 함수호출부 값
+         * 매개변수 parameter 함수선언부 변수(공간)
+         */
+        const test3 = function(){
+            console.log(add1(3, 5));
+            console.log(add1(3, 5, 7)); // 매개변수가 없는 경우 무시
+            console.log(add1(3)); // 매개인자가 없는 경우, 해당 매개변수는 undifined
+
+            console.log(add2(1, 2)); // 3
+            console.log(add2(1, 2, 3, 4, 5)); // 15
+        };
+        /**
+         * arguments 숨은 참조변수
+         * 호출부에서 전달한 매개인자를 가진 유사배열
+         */
+        const add2 = function(){
+            console.log(arguments);
+            
+            let sum = 0;
+            for(let n of arguments){
+                console.log(n); // 요소
+                sum += n;
+            }
+            console.log(`sum = ${sum}`);
+        };
+        const add1 = function(a, b){
+            console.log(`add(${a}, ${b})`);
+            return a + b;
+        };
+    </script>
+
+
+    <button onclick="test7();">화살표함수</button>
+    <button onclick="test8();">중첩된 함수</button>
+
+    <button onclick="test9();">함수고급 - 매개인자처리</button>
+    <button onclick="test10();">함수고급 - 리턴값처리</button>
+    <button onclick="test11();">@실습문제 - tagMaker</button>
+    <div id="target"></div>
+    <script>
+        /**
+         * @실습문제 - tagMaker
+         *  - tagMaker 호출시 특정 태그를 생성할 수 있는 함수 리턴
+         *  - writeP
+         *  - writeSpan
+         *  - writeMark
+         */
+        const test11 = () => {
+            target.innerHTML = "";
+            const datas = ['html5', 'css3', 'js2015'];
+
+            const writeP = tagMaker("p");
+            const writeSpan = tagMaker("span");
+            const writeMark = tagMaker("mark");
+            const writeButton = tagMaker("button");
+
+            datas.forEach((data, i) => {
+                writeP(data);
+                writeSpan(data);
+                writeMark(data);
+                writeButton(data)
+            });
+        };
+        const tagMaker = (tag) => {
+            return (data) => {
+                result = `<${tag}>${data}</${tag}>`;
+                target.innerHTML += result;
+                console.log(result);
+            };
+        }
+        /**
+         * 함수 호출 결과가 함수 일 수 있음
+         */
+        const test10 = () => {
+            // const f = funcMaker();
+            // console.log(typeof f, f);
+            // for(let i = 0; i < 10; i++)
+            //     f(i);
+
+            // 안녕, xx야~ 를 출력하는 sayHello
+            const sayHello = funcMaker2("안녕");
+            sayHello("철수"); // 매개인자 "철수"
+            
+            // 잘가, xx야~ 를 출력하는 sayGoodbye
+            const sayGoodbye = funcMaker2("잘가");
+            sayGoodbye("철수");
+
+            const friends = ['철수', '영희', '짱구', '맹구']
+            friends.forEach((name, index) => {
+                const sayThanks = funcMaker2("고마워")
+                sayThanks(name);
+            });
+        };
+        const funcMaker2 = (greeting) => {
+            return (name) => { // 매개변수 name
+                console.log(`${greeting}, ${name}야~`);
+            };
+        }
+        const funcMaker = () => {
+            return (i) => {
+                console.log(`qoo${i}`);
+            }
+        };
+
+        /**
+         * 함수는 1급객체이다.
+         *  = 값으로써 처리 가능
+         * 
+         */
+        const test9 = () => {
+            // console.log('test9');
+
+            const doo = (i) => {
+                console.log(`doo${i}`);
+            };
+            // funcExecuter(doo);
+
+            // @실습문제 : calc
+            // 숫자 2개와 계산함수를 함꼐 전달해서 결과값을 출력
+            const add = (a, b) => a + b;
+            const subtract = (a, b) => a - b;
+            const multiply = (a, b) => a * b;
+            const divide = (a, b) => a / b;
+            console.log(calculator(30, 10, add));
+            console.log(calculator(30, 10, subtract));
+            console.log(calculator(30, 10, multiply));
+            console.log(calculator(30, 10, divide));
+
+        };
+        const calculator = (n1, n2, func) => {
+            return func(n1, n2);
+        };
+
+        const funcExecuter = (func) => {
+            console.log(typeof func, func);
+            for(let i = 0; i < 10; i++) {
+                func(i);
+            }
+        };
+
+        /**
+         * 중첩된 함수
+         *  - 함수 안에 함수를 선언할 수 있음
+         */
+        const test8 = (a) => {
+            const f = (n) => (n < 10 ? `0${n}` : n);
+            // return n <10 ? `0${n}` : n; 과 동일
+
+            console.log(f(5));
+            console.log(f(10));
+        };
+
+        /**
+         * 화살표함수 arrow function
+         *  - ES6(ECMA2015)문법
+         *  - 익명함수를 function키워드 없이 작성
+         *  - arguments 참조변수 사용불가
+         * 
+         *  - 생성자함수로 사용불가
+         *  - 함수 자체의 this가 없고, 부모 this를 가져와 사용
+         */
+        const test7 = () => {
+            console.log('test7');
+            console.log(koo(3, 7));
+            console.log(boo(5));
+        };
+        const koo = (a, b) => {
+            console.log(`koo(${a}, ${b})`);
+            return a+b;
+        };
+
+        /**
+         * 매개변수가 하나인 경우, 매개변수부 괄호 생략가능
+         * 함수 몸통부 코드가 리턴구문 한 줄인 경우, '{}' 'return' 생략가능
+         */
+        const boo = a => a * 100; // {return a*100;}
+        const hoo = b => console.log(b);
+    </script>
+
+
+</body>
+</html>
