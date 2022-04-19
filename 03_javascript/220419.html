@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임</title>
+</head>
+<body>
+    <fieldset>
+        <legend>@실습문제 : 게임</legend>
+            <button onclick="start();">게임시작</button>
+            <button onclick="end();">게임종료</button>
+            <table id="info">
+                <tbody>
+                    <tr>
+                        <th>게임명</th>
+                        <td id="gameTitle"></td>
+                    </tr>
+                    <tr>
+                        <th>시작시각</th>
+                        <td id="gameStart"></td>
+                    </tr>
+                    <tr>
+                        <th>소요시간</th>
+                        <td id="gameUptime"></td>
+                    </tr>
+                    <tr>
+                        <th>종료시각</th>
+                        <td id="gameEnd"></td>
+                    </tr>
+                </tbody>
+            </table>
+    </fieldset>
+    <script>
+        /**
+         * @실습문제 : game
+         *  - start함수 사용자로부터 게임명 입력받고 게임시작
+         *      - #gameStart 현재 시각정보 hh:mm:ss 형식으로 출력
+         *      - #gameUptime 게임소요시각을 hh:mm:ss 형식으로 출력. setInterval사용해서 1초마다 출력(intervalId)
+         *  - end함수 게임종료
+         *      - #gameEnd 현재 시각정보를 hh:mm:ss 형식으로 출력
+         *      - setInterval을 종료(intervalId)
+         *      - #gameUptime 게임소요시각을 hh:mm:ss 형식으로 출력. setInterval사용해서 1초마다 출력
+         */
+
+        const start = () => {
+            // 1. 게임명 입력받기
+            const inputTitle = prompt('게임명을 입력하세요.');
+            // 2. game객체 startUp메소드 호출
+            game['startUp'](inputTitle);
+        };
+
+        const end = () => {
+            game['shutDown']();
+        };
+
+        const game = {
+            title : undefined,
+            timer : 0,
+            startUp(title){
+                // 3. #info테이블에 게임정보 기록
+                this.title = title;
+                gameTitle.innerText = this.title;
+
+                const date = new Date();
+                
+                const f = (n) => n<10 ? "0"+n : n;
+                const h = date.getHours();
+                const m = date.getMinutes();
+                const s = date.getSeconds();
+                gameStart.innerText = `${f(h)}:${f(m)}:${f(s)}`;
+                this.info.start = ((h * 60 + m) * 60 + s)*1000;
+                gameEnd.innerText = '';
+
+                // 4. 소요시간 interval처리
+                let timeCnt = 0;
+                timer = setInterval(() => {
+                    gameUptime.innerText = new Date(++timeCnt * 1000).toISOString().substr(11, 8);
+                },1000);
+            },
+            shutDown(){
+                const date = new Date();
+
+                const f = (n) => n<10 ? "0"+n : n;
+                const h = date.getHours();
+                const m = date.getMinutes();
+                const s = date.getSeconds();
+                gameEnd.innerText = `${f(h)}:${f(m)}:${f(s)}`;
+                this.info.end = ((h * 60 + m) * 60 + s)*1000;
+
+                // 타이머 종료
+                clearInterval(timer);
+            },
+            info : {
+                start : undefined, // 게임 시작 시각(millis)
+                end : undefined // 게임 종료 시각(millis)
+            }
+        }
+    </script>
+
+</body>
+</html>
