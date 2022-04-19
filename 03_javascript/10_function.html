@@ -15,6 +15,7 @@
         /**
          * 즉시 실행함수 iife(Immediately Invoke Function Expression)
          *  - 선언/호출을 한번에 처리
+         *  - 전역변수의 위험을 지역변수로 대체하여 실행할 용도로 많이 사용
          */
         (function() {
             // console.log("iife1 호출!");
@@ -325,6 +326,39 @@
         const hoo = b => console.log(b);
     </script>
 
+    <button onclick="test12();">this</button>
+    <button onclick="test13();">this</button>
+    <script>
+        /**
+         * this용법2. 일반함수 안에서 사용된 this는 전역객체 window를 가리킴
+         */
+        function test12(){
+            console.log(this);
+            console.log(this === window); // true
+        }
+        /**
+         * this용법3. 화살표함수의 this는 부모환경의 this를 가져다 쓴다.
+         */
+        const test13 = () => {
+            console.log(this);
+            console.log(this === window); // true
+        };
+
+        /**
+         * this용법4. 객체의 일반함수 안에서 this는 현재객체를 가리킨다.
+         */
+        const obj = {
+            id: 'honggd',
+            getId: function(){
+                // 부모의 this는 현재 객체
+                (() => {
+                    console.log('getId안의 화살표 함수 : ', this);
+                })();
+                return this.id;
+            }
+        }
+        console.log(obj.getId());
+    </script>
 
 </body>
 </html>

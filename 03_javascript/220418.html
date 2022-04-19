@@ -60,6 +60,20 @@
             console.log(`i = ${i}`);
         })();
         
+        // var 변수 유효범위(scope)는 function-scope
+        // function안에서만 유효. function바깥의 block은 모두 무시
+        // 전역에 선언된 var는 전역객체 window의 속성으로 등록
+        for (var j = 1; j <= 10; j++) {
+            console.log(j); // 1~10까지 출력
+        }
+        (() => {
+            console.log(`j = ${j}`);
+        })();
+
+        (function(){
+            var k = 10; // 지역변수
+        })();
+
         //4 closer 예습문제
         function foo(){
             const num = 100;
