@@ -55,6 +55,8 @@
             game['shutDown']();
         };
 
+        // 나의 풀이
+        /*
         const game = {
             title : undefined,
             timer : 0,
@@ -96,6 +98,55 @@
                 start : undefined, // 게임 시작 시각(millis)
                 end : undefined // 게임 종료 시각(millis)
             }
+        }
+        */
+
+        const reset = () => {
+            document.querySelectorAll(".info").forEach((td) => td.innerHTML = "");
+            //아직 종료되지 않은 interval함수를 종료
+            intervalId && clearInterval(intervalId);
+        }
+        let intervalId; // interval종료를 위한 id값 변수
+        
+        const game = {
+            title: undefined,
+            startUp(title){
+            this.title = title;
+            this.info.start = Date.now();
+            // 3. #info테이블에 게임정보기록
+            gameTitle.innerHTML = this.title;
+            gameStart.innerHTML = displayTime(new Date(this.info.start));
+            // 4. 소요시간 interval처리
+            intervalId = setInterval(() => {
+                gameUptime.innerHTML = displayUptime(Date.now() - this.info.start);
+            }, 1000);
+            },
+            shutDown(){
+            // 1. 종료시각 기록
+            this.info.end = Date.now();
+            gameEnd.innerHTML = displayTime(new Date(this.info.end));
+            // 2. intervalId 정지
+            clearInterval(intervalId);
+            },
+            info : {
+            start : undefined, // 게임 시작 시각(millis)
+            end : undefined // 게임 종료 시각(millis)
+            }
+        };
+        const f = (n) => (n < 10) ? "0" + n : n;
+        const displayUptime = (millis) => {
+            const sec = Math.trunc(millis / 1000); // 밀리초 - 초 변환
+            const hh = f(Math.trunc(sec / (60 * 60))); // 버림(전체초 / (60초 * 60분)) -> 시간
+            const mm = f(Math.trunc(sec % (60 * 60) / 60)); // 버림((나머지초) / 60초) -> 분
+            const ss = f(sec % (60 * 60) % 60); // 버림(나머지초 % 60초) -> 초
+            return `${hh}:${mm}:${ss}`;
+        };
+        const displayTime = (date) => {
+            
+            const hh = f(date.getHours());
+            const mm = f(date.getMinutes());
+            const ss = f(date.getSeconds());
+            return `${hh}:${mm}:${ss}`;
         }
     </script>
 

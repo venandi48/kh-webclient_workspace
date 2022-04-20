@@ -32,3 +32,17 @@
     }
     console.log(obj.getId());
     ```
+5. 생성자함수에서 this는 현재객체를 가리킨다. (new 연산자 호출 필수)
+    ```js
+    function Pet(name, breed, weight, age, color){
+        this.name = name;
+        this.breed = breed;
+        this.weight = weight;
+        this.age = age;
+        this.color = color;
+        // 단축문법 불가
+        this.bark = function(){
+            return this.weight < 10 ? '왈왈' : '멍멍';
+        };
+    }
+    ```
