@@ -105,6 +105,16 @@
             // 변수명을 달리 사용하고 싶은 경우
             const {a : foo, b : bar, d : doo = 'hi~'} = obj;
             console.log(foo, bar, doo);
+            console.log(a, b, d);
+
+            // 변수 -> 객체
+            const x = 10;
+            const y = '안녕';
+            const z = {
+                x: x,
+                y: y
+            }
+            console.log(z);
         };
 
         /**
@@ -122,7 +132,7 @@
             };
 
             const { id, name : {firstName}, sns : [mainSns] } = user;
-            // console.log(id, firstName, mainSns);
+            console.log(id, firstName, mainSns);
 
             // 매개변수부
             processId(user);
