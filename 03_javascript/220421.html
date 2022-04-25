@@ -12,7 +12,7 @@
   </style>
 </head>
 <body onload="init();">
-    <!-- 페이지 로딩이 끝나면 load 이벤트 발생 -> init 함수 호출 -->
+    <!-- 페이지 로딩이(DOM등록) 끝나면 load 이벤트 발생 -> init 함수 호출 -->
     <h1>@실습문제 - 상속 - 메뉴</h1>
     <h2>메뉴</h2>
     <table id="menu-food">
@@ -96,12 +96,13 @@
         const render = () => {
             const foodQuery = document.querySelector("#menu-food tbody");
             foodQuery.innerHTML = menuData.foodMenu.reduce((html, food, index) => {
-                return html + `<tr><td>${food.id}</td><td>${food.name}</td><td>${food.price}</td><td>${food.type}</td></tr>`
+                return html + `<tr><td>${index+1}</td><td>${food.name}</td><td>${food.price}</td><td>${food.type}</td></tr>`
             }, "");
 
             const drinkQuery = document.querySelector("#menu-drink tbody");
             drinkQuery.innerHTML = menuData.drinkMenu.reduce((html, drink, index) => {
-                return html + `<tr><td>${drink.id}</td><td>${drink.name}</td><td>${drink.price}</td><td>${drink.adultOnly}</td></tr>`
+                return html + `<tr><td>${index+1}</td><td>${drink.name}</td><td>${drink.price}</td>
+<td><input type='checkbox' onclick='return false;' ${drink.adultOnly ? 'checked' : ''}/></td></tr>`
             }, "");
         };
 
