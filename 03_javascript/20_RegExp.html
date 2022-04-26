@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정규표현식</title>
+    <style>
+        .area {
+            background-color: lightgrey;
+            border: 2px solid #000;
+            padding: 5px;
+            margin: 10px 0;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>정규표현식 Regular Expression</h1>
+    <!--
+        정규표현식은 특정규칙을 가진 문자열집합에 대한 표현식
+        언어독립적(java, python, c, ...)
+        유효성검사, 검색, 문자열대체 등에 사용
+        일반적 조건문 사용보다 간결하게 표현가능하지만 문법숙지 난이도 높음
+    -->
+
+    <button id="btn1">맛보기</button>
+    <script>
+        /**
+         * 정규표현식 객체 만들기
+         *  1. /정규표현식/
+         *  2. new RegExp(/정규표현식/gi)
+         *  3. new RegExp("정규표현식", "gi")
+         */
+        btn1.onclick = () => {
+            const regexp1 = /[0-9]/g;
+            const regexp2 = new RegExp(/[0-9]/);
+            const regexp3 = new RegExp("[0-9]");
+
+            // console.dir(regexp1);
+            // console.dir(regexp2);
+            // console.dir(regexp3);
+
+            const str1 = "abcde123";
+            const str2 = "xyz";
+
+            // 숫자포함여부 확인
+            // RegExp#test : boolean
+            // console.log(regexp1.test(str1));
+            // console.log(regexp1.test(str2));
+            
+            // RegExp#exec : []
+            // console.log(regexp1.exec(str1));
+            // console.log(regexp1.exec(str2));
+
+            // String#match : []
+            console.log(str1.match(regexp1));
+            // ['1', index: 5, input: 'abcde123', groups: undefined]
+            // ['1', '2', '3']
+
+            // String#search : number <- index
+            console.log(str1.search(regexp1)); // 5
+
+            // String#replace : string <- 텍스트 대체
+            console.log(str1.replace(regexp1, "*")); // abcde***
+
+            // String#split : [] <- 구분자로 나누기
+            console.log(str1.split(regexp1)); // ['abcde', '', '', '']
+        };
+
+    </script>
+
+    <button id="btn2">대체문자</button>
+    <div class="area" id="area2"></div>
+    <script>
+        /**
+         * replace에 사용하는 대체문자
+         *  - $& : 매칭된 문자열
+         *  - $` : 매칭된 문자열 앞부분
+         *  - $' : 매칭된 문자열 뒷부분
+         */
+        btn2.onclick = () => {
+            const str = 'javascript jquery ajax css sass';
+            const regexp = new RegExp(/as/);
+            area2.innerHTML = `${str.replace(regexp, '<mark>$&</mark>')}<br>`;
+            area2.innerHTML += `${str.replace(regexp, '<mark>$`</mark>')}<br>`;
+            area2.innerHTML += `${str.replace(regexp, "<mark>$'</mark>")}<br>`;
+
+            // 콜백함수처리
+            area2.innerHTML += `${str.replace(regexp, (str) => "<mark>"+ str +"</mark>")}<br>`;
+        };
+    </script>
+
+    <button id="btn3">flag</button>
+    <div class="area" id="area3"></div>
+    <script>
+        const SUBSTITUTE = '<mark>$&</mark>'
+        /**
+         * flag문자 - 정규표현식 옵션
+         *  - g : global 전역비교수행. g 없으면 처음 매칭된 1건만 처리
+         *  - i : ignore 대소문자 구문없이 처리. 영문에만 해당.
+         *  - m : multiline 여러행인 경우 행단위 비교 수행
+         */
+        btn3.onclick = () => {
+            const str = 'Javascript jQuery Ajax sass';
+            area3.innerHTML = `${str.replace(/a/, SUBSTITUTE)}<br>`;
+
+            area3.innerHTML += `${str.replace(/a/g, SUBSTITUTE)}<br>`;
+            // area3.innerHTML += `${str.replace(new RegExp("a", "g"), SUBSTITUTE)}<br>`;
+            
+            area3.innerHTML += `${str.replace(/a/gi, SUBSTITUTE)}<br>`;
+            // area3.innerHTML += `${str.replace(new RegExp("a", "gi"), SUBSTITUTE)}<br>`;
+        };
+    </script>
+
+
+    <button id="btn4">anchor</button>
+    <div class="area" id="area4"></div>
+    <script>
+        /**
+         * anchor문자
+         *  ^ : 문자열의 시작
+         *  $ : 문자열의 끝
+         */
+        btn4.onclick = () => {
+            const str = 'Javascript xxx jQuery Ajax';
+            area4.innerHTML = `${str.replace(/j/gi, SUBSTITUTE)}<br>`
+            area4.innerHTML += `${str.replace(/^j/gi, SUBSTITUTE)}<br>`
+            
+            area4.innerHTML += `${str.replace(/x/gi, SUBSTITUTE)}<br>`
+            area4.innerHTML += `${str.replace(/x$/gi, SUBSTITUTE)}<br>`
+            
+            const str2 = 'Javascript\nxxx\njQuery\nAjax';
+            area4.innerHTML += `${str2.replace(/^j/gim, SUBSTITUTE)}<br>`
+            area4.innerHTML += `${str2.replace(/x$/gim, SUBSTITUTE)}<br>`
+        };
+    </script>
+
+    <button id="btn5">.</button>
+    <!-- <div class="area" id="area5"></div> -->
+    <script>
+        /**
+         * . : 임의의 한 글자
+         *  - 문자, 특수문자, 공백 등 문자 하나를 가리킴
+         */
+        btn5.onclick = () => {
+            const regexp = /^a.b/;
+            console.log('acb', regexp.test('acb')); // true
+            console.log('acbasdasdasd', regexp.test('acbasdasdasd')); // true
+            console.log('aaba', regexp.test('aaba')); // true
+            console.log('ab', regexp.test('ab')); // false
+            console.log('a b', regexp.test('a b')); // true
+            console.log('a\nb', regexp.test('a\nb')); // false
+            console.log('a\tb', regexp.test('a\tb')); // true
+        };
+
+    </script>
+
+</body>
+</html>
