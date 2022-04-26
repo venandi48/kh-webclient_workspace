@@ -7,11 +7,15 @@
     <title>정규표현식</title>
     <style>
         .area {
+            visibility: hidden;
             background-color: lightgrey;
             border: 2px solid #000;
             padding: 5px;
             margin: 10px 0;
             min-height: 50px;
+        }
+        button:not(#btn1){
+            visibility: hidden;
         }
     </style>
 </head>
@@ -46,12 +50,12 @@
 
             // 숫자포함여부 확인
             // RegExp#test : boolean
-            // console.log(regexp1.test(str1));
-            // console.log(regexp1.test(str2));
+            console.log(regexp1.test(str1));
+            console.log(regexp1.test(str2));
             
             // RegExp#exec : []
-            // console.log(regexp1.exec(str1));
-            // console.log(regexp1.exec(str2));
+            console.log(regexp1.exec(str1));
+            console.log(regexp1.exec(str2));
 
             // String#match : []
             console.log(str1.match(regexp1));
@@ -98,7 +102,7 @@
         /**
          * flag문자 - 정규표현식 옵션
          *  - g : global 전역비교수행. g 없으면 처음 매칭된 1건만 처리
-         *  - i : ignore 대소문자 구문없이 처리. 영문에만 해당.
+         *  - i : ignore 대소문자 구분없이 처리. 영문에만 해당.
          *  - m : multiline 여러행인 경우 행단위 비교 수행
          */
         btn3.onclick = () => {

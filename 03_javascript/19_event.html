@@ -15,9 +15,8 @@
         //     alert("페이지 로딩이 완료되었습니다. 1");
         //     f(); // body 코드라인에 선언된에 선언된 함수 호출가능
         // };
-        // // f();
-        
-        // // 선언 이전에 호출하기때문에 오류
+        // // f(); // 선언 이전에 호출하기때문에 오류
+
         // window.addEventListener("load", () => {
         //     alert("페이지 로딩이 완료되었습니다. 2");
         //     f();
@@ -47,7 +46,7 @@
     <button id="btn3_1">#btn3 이벤트핸들러 제거</button>
     <script>
         /**
-         * 1. html태그의 inline 속성으로 작성하기
+         * 1. html태그의 inline 속성으로 작성 (이벤트객체 변수명은 event로 고정)
          *  button태그의 (A)click이 발생하면, (B)tes1 호출
          */
         const test1 = (e) => {
@@ -160,8 +159,8 @@
             // console.log(e.type);
         });
         username.addEventListener("keyup", (e)=>{
-            // console.log(e.type, e.keyCode, e.key, e.code);
-            // console.log(e);
+            console.log(e.type, e.keyCode, e.key, e.code);
+            console.log(e);
 
             // 엔터입력 감지
             if(e.keyCode === 13) {
