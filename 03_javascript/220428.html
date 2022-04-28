@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기</title>
+    <style>
+        img {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btn1">깃허브 프로필 로드</button>
+    <div id="result"></div>
+    <script>
+        const USER_URL = "https://asia-northeast3-focal-elf-326215.cloudfunctions.net/user";
+        const GIT_URL = "https://api.github.com/users/";
+
+        btn1.addEventListener("click", () => {
+            fetch(USER_URL)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((userUrlData) => {
+                    return userUrlData.id;
+                })
+                .then((userId) => {
+                    fetch(`${GIT_URL}${userId}`)
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((userGitData) => {
+                            const img = document.createElement("img");
+                            img.src = userGitData.avatar_url;
+                            document.querySelector("#result").append(img);
+                        });
+                });
+        });
+    </script>
+    
+</body>
+</html>

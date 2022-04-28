@@ -262,7 +262,9 @@
         <td>${data.classroom}</td>
     </tr>
 </table>`;
-                });
+                    return `https://api.github.com/users/${data.id}`;
+                })
+                .fetch(gitUserURL);
 
             // 2. 깃허브 유저정보 요청
             // 3. 페이지에 프로필이미지 로드
