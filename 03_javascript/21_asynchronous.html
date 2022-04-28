@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기처리</title>
+</head>
+<body>
+    <h1>비동기처리</h1>
+    <!--
+       자바스크립트는 싱글스레드로 처리된다.
+        비동기처리함수(Timer API, DOM처리, Event처리, Ajax(XMLHttpRequest))를 만나는 경우만 백그라운드(Web APIs)로 처리 위임
+        콜스택의 동기적 작업이 완료되면 콜백함수를 실행하는 구조
+         - heep
+         - call stack
+         - Web APIs
+         - Callback Queue : EventLoop에 의해 call stack이 비워질 때 순차적(FIFO) 실행
+    -->
+
+    <button id="btn1">Async - Timer</button>
+    <button id="btn2">Async - Dom</button>
+    <script>
+        btn1.addEventListener("click", () => {
+            // 동기적처리 : foo실행결과를 기다리고 결과를 반환받은 뒤에 다음 코드 실행.
+            // const result = foo();
+            // console.log("result : ", result);
+            
+            // 비동기적 처리
+            let result;
+            setTimeout(() => {
+                // Web API --> Callback Queue --> call stack 비워지면 EventLoop에 의해 callstack 추가 및 실행
+                result = 100
+                console.log("result@timer : ", result);
+            }, 0);
+            console.log("result : ", result);
+        });
+        const foo = () =>  {
+            console.log("foo");
+            return 100
+        };
+
+        /**
+         * DOM
+         *  - 외부스크립트를 동적으로 로딩하여 실행
+         * 
+         * callback함수
+         *  - 비동기적인 처리가 완료되면 실행하는 함수
+         * 
+         * bar 호출이 완료되면 car@2.js 호출
+         */
+        btn2.addEventListener("click", () => {
+            // loadScript("js/1.js");
+            // bar(); // Uncaught ReferenceError: src is not defined
+            
+            let src;
+            // callback함수 이용(비동기적 처리가 완료되면 실행할 함수)
+            loadScript("js/1.js", (script) => {
+                console.log(`${script.src} loading완료!`);
+                src = bar();
+                loadScript(src, (script) => {
+                    console.log(`${script.src} loading완료!`);
+                    src = car();
+                    loadScript(src, (script) => {
+                        console.log(`${script.src} loading완료!`);
+                        src = dar();
+                    });
+                });
+            });
+        });
+
+        /**
+         * <script src="js/1.js">&lt< /script>
+         */
+        const loadScript = (src, callback) => {
+            const script = document.createElement("script");
+            script.src = src;
+
+            // script태그 loading완료 시 호출할 핸들러로 바인딩
+            script.onload = () => {
+                callback(script);
+            }
+
+            // DOM에 추가(비동기처리)
+            document.head.append(script);
+        };
+
+
+    </script>
+    
+
+    <button id="btn3">Promise</button>
+    <button id="btn4">Promise - setTimeout</button>
+    <button id="btn5">Promise - 처리순서</button>
+    <script>
+        /**
+         * Promise
+         *  - producer code : 비동기
+         *  - consumer code : 콜백
+         *  - Promise는 producer와 consumer를 연결시키는 객체
+         *  - callback hell을 제거, 아래로 코드를 연이어 작성가능
+         * 
+         * 속성
+         *  - status :
+         *      pending(dufault) -> 정상처리: fulfilled
+         *      pending(dufault) -> 처리실패: rejected
+         *  - result
+         *      undefined(default) -> 정상처리: value
+         *      undefined(default) -> 처리실패: 예외객체
+         */
+        btn3.addEventListener("click", () => {
+            // resolve : 성공시 콜백함수
+            // reject : 실패시 콜백함수
+            const promise = new Promise((resolve, reject) => {
+                try{
+                    // 비동기작업 Producer Code
+                    console.log("Producing.....");
+                    // throw new Error("비동기 작업중 - 으악!");
+                    resolve(12345); // callback에 전달할 value값
+                } catch(e) {
+                    reject(e);
+                }
+            });
+            // console.log(promise);
+
+            // then(resolve콜백함수[, reject콜백함수])
+            promise
+                .then((value) => {
+                    console.log("Consuming.....");
+                    console.log(value);
+                })
+                .catch((err) => {
+                    console.log("실패 : ", err);
+                });
+        });
+        
+
+        /**
+         * setTimeout을 promise를 통해 사용하기
+         */
+        btn4.addEventListener("click", () => {
+            console.log(timeoutPromise("안녕", 3000)
+                .then((value) => {
+                    console.log(value);
+                })
+            );
+        });
+        const timeoutPromise = (msg, millis) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => resolve(msg), millis);
+            });
+        };
+        
+        /**
+         * then : Promise 리턴 -> 이후 실행코드에 다시 then절 작성가능
+         */
+        btn5.addEventListener("click", () => {
+            console.log(
+                orderPromise()
+                    .then((value) => {
+                        console.log(value);
+                    })
+                    .then(() => {
+                        console.log("finished.....");
+                    })
+            );
+        });
+        const orderPromise = () => new Promise((resolve, reject) => {
+            console.log("promise producing...");
+            resolve("abc");
+        });
+    </script>
+
+    <button id="btn6">promise - loadScript</button>
+    <button id="btn7">promise chain</button>
+    <script>
+        /**
+         * 1.js를 동적으로 로드 후 bar 호출
+         */
+        btn6.addEventListener("click", () => {
+            loadScriptPromise("js/1.js")
+                .then((value) => {
+                    console.log(`${value} 로딩 완료!`);
+                    const src = bar();
+                    return loadScriptPromise(src);
+                })
+                .then((value) => {
+                    console.log(`${value} 로딩 완료!`);
+                    return loadScriptPromise(car());
+                })
+                .then((value) => {
+                    console.log(`${value} 로딩 완료!`);
+                    dar();
+                });
+        });
+        const loadScriptPromise = (src) => new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => resolve(src);
+            document.head.append(script);
+        });
+    
+        /**
+         * Pormise Chain
+         *  - Promise#then은 암묵적으로 Promise객체를 리턴
+         *  - Promise#then안에서 명시적으로 Promise객체를 리턴할 수 있음
+         *  - Promise#then에서 값을 리턴하면 암묵적 Promise객체의 result값이 됨
+         */
+        // console.log(resolve); // ƒ () { [native code] }
+        // console.log(reject); // ƒ () { [native code] }
+        btn7.addEventListener("click", () => {
+            new Promise((resolve, reject) => {
+                setTimeout(() => resolve(100), 1000);
+            })
+            .then((value) => {
+                console.log(value);
+                return value * 2; // resolve(200);
+            })
+            .then((value) => {
+                console.log(value);
+                return value * 2; // resolve(400);
+            })
+            .then((value) => {
+                console.log(value);
+            });
+        });
+    </script>
+
+
+    <button id="btn8">fetch</button>
+    <button id="btn9">json</button>
+    <div id="fetch-result"></div>
+    <script>
+        const USER_URL = "https://asia-northeast3-focal-elf-326215.cloudfunctions.net/user";
+        /**
+         * 네트워크 통신 - 비동기처리 (XMLHttpRequest객체)
+         *  - fetch : Promise객체로 반환
+         */
+        btn8.addEventListener("click", () => {
+            // 1. userId 읽어오기
+            fetch(USER_URL)
+                .then((response) => {
+                    // 첫 응답메세지가 도착했을 때 resolve 실행
+                    console.log(response);
+                    return response.json(); // json데이터를 js object로 변환
+                })
+                .then((data) => {
+                    console.log("data : ", typeof data, data);
+
+                    const container = document.querySelector("#fetch-result");
+                    container.innerHTML = `<table>
+    <tr>
+        <th>id</th>
+        <td>${data.id}</td>
+    </tr>
+    <tr>
+        <th>company</th>
+        <td>${data.company}</td>
+    </tr>
+    <tr>
+        <th>classroom</th>
+        <td>${data.classroom}</td>
+    </tr>
+</table>`;
+                });
+
+            // 2. 깃허브 유저정보 요청
+            // 3. 페이지에 프로필이미지 로드
+        });
+
+        /**
+         * json
+         *  - Javascript Object Notation
+         *  - 이(異)종간 통신에서 data를 주고받기위한 format언어
+         */
+        btn9.addEventListener("click", () => {
+            // javascript object/array -> json
+            const obj = {
+                name: '홍길동',
+                age: 33,
+                sns: ['instagram', 'twitter'],
+                family: {
+                    father: '홍대디',
+                    mother: '홍마미'
+                },
+                married: false
+            };
+            // console.log(typeof obj, obj);
+            
+            const jsonObj = JSON.stringify(obj);
+            // console.log(typeof jsonObj, jsonObj);
+            // string {"name":"홍길동","age":33,"sns":["instagram","twitter"],"family":{"father":"홍대디","mother":"홍마미"},"married":false}
+            
+            // json -> javascript object
+            const other = JSON.parse(jsonObj);
+            console.log(typeof other, other);
+        });
+    </script>
+
+
+</body>
+</html>
