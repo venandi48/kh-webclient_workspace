@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기통신</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- ie에서 es6사용을 위한 babel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.12.1/polyfill.min.js" integrity="sha512-uzOpZ74myvXTYZ+mXUsPhDF+/iL/n32GDxdryI2SJronkEyKC8FBFRLiBQ7l7U/PTYebDbgTtbqTa6/vGtU23A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
+    
+    <style>
+        #img-wrapper, .img-wrapper {
+            width: 200px;
+        }
+        #img-wrapper img, .img-wrapper img {
+            width: 100%;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>비동기통신</h1>
+
+    <button id="btn1">fetch</button>
+    <button id="btn2">json</button>
+    <div id="fetch-result"></div>
+    <script>
+        const USER_URL = "https://asia-northeast3-focal-elf-326215.cloudfunctions.net/user";
+        /**
+         * 네트워크 통신 - 비동기처리 (XMLHttpRequest객체)
+         *  - fetch : Promise객체로 반환
+         */
+        btn1.addEventListener("click", () => {
+            // 1. userId 읽어오기
+            fetch(USER_URL)
+                .then((response) => {
+                    // 첫 응답메세지가 도착했을 때 resolve 실행
+                    console.log(response);
+                    return response.json(); // json데이터를 js object로 변환
+                })
+                .then((data) => {
+                    console.log("data : ", typeof data, data);
+
+                    const container = document.querySelector("#fetch-result");
+                    container.innerHTML = `<table>
+    <tr>
+        <th>id</th>
+        <td>${data.id}</td>
+    </tr>
+    <tr>
+        <th>company</th>
+        <td>${data.company}</td>
+    </tr>
+    <tr>
+        <th>classroom</th>
+        <td>${data.classroom}</td>
+    </tr>
+</table>`;
+                    return `https://api.github.com/users/${data.id}`;
+                });
+        });
+
+        /**
+         * json
+         *  - Javascript Object Notation
+         *  - 이(異)종간 통신에서 data를 주고받기위한 format언어
+         */
+        btn2.addEventListener("click", () => {
+            // javascript object/array -> json
+            const obj = {
+                name: '홍길동',
+                age: 33,
+                sns: ['instagram', 'twitter'],
+                family: {
+                    father: '홍대디',
+                    mother: '홍마미'
+                },
+                married: false
+            };
+            // console.log(typeof obj, obj);
+            
+            const jsonObj = JSON.stringify(obj);
+            // console.log(typeof jsonObj, jsonObj);
+            // string {"name":"홍길동","age":33,"sns":["instagram","twitter"],"family":{"father":"홍대디","mother":"홍마미"},"married":false}
+            
+            // json -> javascript object
+            const other = JSON.parse(jsonObj);
+            console.log(typeof other, other);
+        });
+    </script>
+
+    <button id="btn4">Axios - Dog</button>
+    <div class="img-wrapper dog"></div>
+    <button id="btn5">Axios - Cat</button>
+    <div class="img-wrapper cat"></div>
+    <script>
+        const DOG_URL = "https://dog.ceo/api/breeds/image/random";
+        btn4.addEventListener("click", () => {
+            
+            // Promise 리턴(응답메세지 수신을 완료했을 때 이행)
+            axios.get(DOG_URL)
+                .then((response) => {
+                    console.log(response);
+                    const {data : {message}} = response;
+                    const img = document.createElement("img");
+                    img.src = message;
+                    document.querySelector(".img-wrapper").append(img);
+                });
+        });
+
+        const CAT_URL = "https://api.thecatapi.com/v1/images/search";
+        btn5.addEventListener("click", () => {
+            
+            // header에 추가될 속성 x-api-key 설정
+            axios.defaults.headers.common['x-api-key'] = "9689dd8b-9ea0-40c2-867f-b81e857a24ce";
+            axios.get(CAT_URL, {
+                params: {
+                    limit: 1,
+                    size: "full"
+                } 
+            })
+            .then((response) => {
+                const {data : [{url}]} = response;
+                console.log(url);
+                
+                const img = document.createElement("img");
+                img.src = url;
+                img.onload = () => {
+                    setTimeout(() => {
+                        img.remove();
+                    }, 3000);
+                };
+                document.querySelector(".img-wrapper.cat").append(img);
+            });
+        });
+    </script>
+
+
+    <button id="btn6">github avatar - async</button>
+    <div id="img-wrapper"></div>
+    <button id="btn7">dog - async</button>
+    <button id="btn8">cat - async</button>
+    <script>
+        const GIT_URL = "https://api.github.com/users/";
+        /**
+         * user.id
+         * githubUser.avatar_url
+         * img.src
+         */
+        btn6.addEventListener("click", async () => {
+            let response = await axios(USER_URL);
+            let {data: {id}} = await response;
+            console.log(response, id);
+            
+            response = await axios(GIT_URL + id);
+            let {data: {avatar_url}} = response;
+            console.log(response, avatar_url);
+
+            const img = document.createElement("img");
+            img.src = avatar_url;
+            document.querySelector("#img-wrapper").append(img);
+        });
+
+        btn7.addEventListener("click", async () => {
+            let response = await axios.get(DOG_URL);
+            const {data : {message}} = response;
+            const img = document.createElement("img");
+            img.src = message;
+            document.querySelector("#img-wrapper").append(img);
+        });
+        btn8.addEventListener("click", async () => {
+            axios.defaults.headers.common['x-api-key'] = "9689dd8b-9ea0-40c2-867f-b81e857a24ce";
+            let response = await axios.get(CAT_URL, { params: { limit: 1, size: "full" } });
+            const {data : [{url}]} = response;
+            const img = document.createElement("img");
+            img.src = url;
+            document.querySelector("#img-wrapper").append(img);
+        });
+    </script>
+</body>
+</html>

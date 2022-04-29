@@ -21,22 +21,16 @@
 
         btn1.addEventListener("click", () => {
             fetch(USER_URL)
-                .then((response) => {
-                    return response.json();
-                })
+                .then((response) => response.json()) // 한줄로 작성 가능
                 .then((userUrlData) => {
-                    return userUrlData.id;
+                    const {id} = userUrlData;
+                    return fetch(`${GIT_URL}${id}`); // 명시적 Promise 리턴
                 })
-                .then((userId) => {
-                    fetch(`${GIT_URL}${userId}`)
-                        .then((response) => {
-                            return response.json();
-                        })
-                        .then((userGitData) => {
-                            const img = document.createElement("img");
-                            img.src = userGitData.avatar_url;
-                            document.querySelector("#result").append(img);
-                        });
+                .then((response) => response.json())
+                .then((userGitData) => {
+                    const img = document.createElement("img");
+                    img.src = userGitData.avatar_url;
+                    document.querySelector("#result").append(img);
                 });
         });
     </script>
