@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jQuery_02_filter_실습</title>
+	<!--최신 jquery cdn 사용하기-->
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <h2>Filter1</h2>
+  
+  <script>
+    function checkBtn(){
+      const result = [];
+      $("[name=check]").each((index, checkbox) => {
+        if($(checkbox).prop("checked"))
+          console.log(`${$(checkbox).val()}번`);
+      });
+  }
+  </script>
+      
+  <input type="checkbox" name="check" value="1" /> 1번  
+  <input type="checkbox" name="check" value="2" /> 2번
+  <input type="checkbox" name="check" value="3" /> 3번
+  <input type="checkbox" name="check" value="4" /> 4번
+  <br/>
+  <input type="button" value="체크 버튼 확인" onclick="checkBtn()" />
+
+  <hr>
+
+  <h2>Filter2</h2>
+  <script>
+    function selectBtn(){
+      $("option").filter((index, option) => {
+        if($(option).prop("selected") == true){
+          console.log(`${$(option).val()}번`);
+        }
+      });
+    }
+  </script>
+      
+  <select>
+    <option value="1" selected="selected">1번</option>
+    <option value="2">2번 </option>
+    <option value="3">3번 </option>
+  </select>
+  <br/>
+  <input type="button" value="Select 버튼 확인" onclick="selectBtn()" />
+      
+</body>
+</html>
