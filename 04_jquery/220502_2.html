@@ -55,7 +55,8 @@
   <h2>Selector3</h2>
   <script>
     function clear(){ 
-      $("table *").css("color", "");
+      // $("table *").css("color", "");
+      $("table *").removeAttr("style");
     }
     function click1(){ 
       $("tr:contains('가')").children().not(":first")

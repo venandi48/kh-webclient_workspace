@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css</title>
+  <script src="./js/jquery-3.6.0.js"></script>
+  <!-- <script src="https://code.jquery.com/color/jquery.color-2.2.0.js" integrity="sha256-gvMJWDHjgDrVSiN6eBI9h7dRfQmsTTsGU/eTT8vpzNg=" crossorigin="anonymous"></script> -->
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+  <style>
+    img {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>css</h1>
+
+  <div>
+    <button id="btn1">show</button>
+    <button id="btn2">hide</button>
+    <button id="btn3">toggle</button>
+    <br><br>
+    <img src="../sample/image/river1.PNG" alt="" id="river">
+  </div>
+
+  <script>
+    /**
+     * show(speed, easing, callback)
+     * hide(speed, easing, callback)
+     * toggle(speed, easing, callback)
+     */
+    $(btn1).click(() => {
+      $(river).show(500);
+    });
+
+    $(btn2).click(() => {
+      $(river).hide(500);
+    });
+    
+    $(btn3).click(() => {
+      $(river).toggle(1000, "linear", () => {
+        alert("토글완료!");
+      });
+    });
+  </script>
+
+
+  <div class="wrapper">
+    <div class="menu">HTML</div>
+    <p class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia enim, ut et architecto id accusamus quis debitis quasi molestias esse adipisci asperiores dolore dignissimos atque saepe dicta consequatur rem ipsam.</p>
+    <div class="menu">CSS</div>
+    <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur culpa architecto aliquam odit voluptatem ipsam earum dignissimos? Libero eaque ut aliquam fugiat cupiditate consequuntur similique nulla facilis, magnam natus voluptate.</p>
+    <div class="menu">Javascript</div>
+    <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, mollitia nostrum alias similique voluptatibus laborum officiis error id soluta deleniti eum ullam voluptatem tempore aliquid, dolores atque quam quis praesentium!</p>
+    <div class="menu">jQuery</div>
+    <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis odio ratione error at illum culpa reprehenderit id natus excepturi! Corrupti mollitia quod laborum provident maiores laudantium, illo at debitis exercitationem?</p>
+    <div class="menu">HTML5 API</div>
+    <p class="content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit itaque maxime amet incidunt eligendi quod sit alias vel quis corrupti unde reiciendis laudantium perferendis iste pariatur fugiat odio, voluptatibus atque?</p>
+  </div>
+  <style>
+    .menu {
+      width: 300px;
+      height: 30px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid lightgreen;
+    }
+    .content {
+      width: 300px;
+      border: 1px solid lightgrey;
+      border-radius: 10px;
+      margin: 3px 0;
+      padding: 3px;
+      display: none;
+    }
+  </style>
+  <script>
+    /**
+     * slideDown(speed, easing, callback)
+     * slideUp(speed, easing, callback)
+     * slideToggle(speed, easing, callback)
+     * 
+     *  - speed 기본값 400 millis
+     */
+    // $(".menu").click((e) => {
+    //   $(e.target)
+    //     .next()
+    //     .slideToggle();
+    // });
+
+    $(".menu").click((e) => {
+      $(e.target)
+        .next()
+        .slideToggle()
+        .siblings(".content")
+        .slideUp();
+    });
+  </script>
+
+  <br><br><br>
+  <div style="border: 1px solid gray;">
+    <button id="btn4">fadeIn</button>
+    <button id="btn5">fadeOut</button>
+    <button id="btn6">fadeToggle</button>
+    <br><br>
+    <img src="../sample/image/river2.PNG" alt="" id="river2">
+  </div>
+  <script>
+    /**
+     * fadeIn(speed, easing, callback)
+     * fadeOut(speed, easing, callback)
+     * fadeToggle(speed, easing, callback)
+     */
+    $(btn4).click(() => {
+      $(river2).fadeIn();
+    });
+    $(btn5).click(() => {
+      $(river2).fadeOut();
+    });
+    $(btn6).click(() => {
+      $(river2).fadeToggle();
+    });
+  </script>
+
+  <button id="btn7">animate</button>
+  <div class="box"></div>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: orangered;
+      position: relative;
+      margin: 10px 0;
+    }
+  </style>
+  <script>
+    /**
+     * animate(styleProps. duration, easing, callback)
+     */
+    $(btn7).click(() => {
+      const style1 = {
+        "width": "500px",
+        "height": "500px",
+        "background-color": "red",
+      };
+      const style2 = {
+        "width": "400px",
+        "height": "400px",
+        "background-color": "yellow",
+      };
+
+      $(".box").animate(style1, 1000, () => {
+        $(".box").animate(style2, 500)
+      });
+    });
+  </script>
+
+  <br><br><br><br><br><br><br><br>
+
+</body>
+</html>
